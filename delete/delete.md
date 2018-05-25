@@ -19,15 +19,21 @@ run. This state for User A is unacceptable.
 ![stuck delete](delete.jpg)
 
 
+### Possible solutions
 
+* hack the apiserver to remove this convention
 ```
 Once the deletionTimestamp is set, this value may not be unset or
 be set further into the future, although it may be shortened or the
 resource may be deleted prior to this time.
 ```
 
+* imperative/declarative delete through UPDATE
 
- - [delete scenario]
+ - disable user access to DELETE with RBAC
+ - add a field that indicates we should go through the delete flow
+   - update that field, have platform do the delete on the broker
+   - have controller call DELETE on resource if broker sucessfully deletes
 
 [ServiceInstance]: https://github.com/kubernetes-incubator/service-catalog/blob/v0.1.20/pkg/apis/servicecatalog/types.go#L670-L680
 [ServiceBinding]: https://github.com/kubernetes-incubator/service-catalog/blob/v0.1.20/pkg/apis/servicecatalog/types.go#L964-L975
