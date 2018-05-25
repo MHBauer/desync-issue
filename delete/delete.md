@@ -18,6 +18,22 @@ run. This state for User A is unacceptable.
 
 ![stuck delete](delete.jpg)
 
+### tl;dr
+
+ - User B deletes a kube resource, which initializes the deletionTimestamp
+ - This causes the finalizer to run
+ - User B is not allowed to delete the backing object
+ - Therefore the kube object should be rolled-back/un-deleted.
+ - This is impossible with api-machinery
+ - The finalizer cannot ever finish
+ - the object is in a bad state forever
+
+### FAQ
+
+#### Why is user B allowed to do that action? You should set up RBAC better.
+
+When is any system ever coherent? This is a possible state. We need to
+handle it.
 
 ### Possible solutions
 
