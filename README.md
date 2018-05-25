@@ -2,9 +2,11 @@ Repo for documents related to the issue about state desync between kube and exte
 
 # issues
  - [update scenario]
- - [delete scenario]
+ - [delete scenario] easy to understand, but contrived 
+ - [general case]
  - [external auth]
 
 [update scenario]: update/update.md
 [delete scenario]: delete/delete.md
+[general case]: generic/generic.md
 [external auth]: eauth/auth.md
