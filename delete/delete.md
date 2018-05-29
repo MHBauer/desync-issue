@@ -35,6 +35,10 @@ run. This state for User A is unacceptable.
 When is any system ever coherent? This is a possible state. We need to
 handle it.
 
+#### You should be pre-authorizing the action before you persist it with an admission controller.
+
+Still can get out of sync in between intial auth and action requiring auth.
+
 ### Possible solutions
 
 #### hack the apiserver to remove this convention
