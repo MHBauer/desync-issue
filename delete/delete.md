@@ -41,6 +41,10 @@ Still can get out of sync in between intial auth and action requiring auth.
 
 ### Possible solutions
 
+#### add a declarative/imperative deprovision/unbind DELETE equivalent
+ - un-kube like
+ - must do an update to do a delete
+
 #### hack the apiserver to remove this convention
 ```
 Once the deletionTimestamp is set, this value may not be unset or
@@ -55,7 +59,7 @@ resource may be deleted prior to this time.
    - update that field, have platform do the delete on the broker
    - have controller call DELETE on resource if broker sucessfully deletes
 
-#### admission controller 
+#### [Admission Controllers Always]
 
 Do all state changes in an admission controller before persisting them.
  
@@ -70,6 +74,7 @@ cons:
 
  - doesn't solve delete case directly
 
+[Admission Controllers Always]: ../solutions/solutions.md#admission-controllers-always
 [ServiceInstance]: https://github.com/kubernetes-incubator/service-catalog/blob/v0.1.20/pkg/apis/servicecatalog/types.go#L670-L680
 [ServiceBinding]: https://github.com/kubernetes-incubator/service-catalog/blob/v0.1.20/pkg/apis/servicecatalog/types.go#L964-L975
 [setting the DeletionTimestamp]: https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata
