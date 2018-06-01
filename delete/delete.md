@@ -1,4 +1,5 @@
 
+# DELETE 
 
  - User A has permissions to the broker.
  - User B does not have permissions to the broker, but can still see and modify the k8s objects.
