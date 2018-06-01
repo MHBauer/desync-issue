@@ -64,15 +64,15 @@ resource may be deleted prior to this time.
 Do all state changes in an admission controller before persisting them.
  
 pros:
- - solves everything
+ - solves everything, we can do anything we want.
 
 cons:
  - loss of state/data if something gets in a bad state between acting and persistence. 
- - duplicates everything into the apiserver
+ - duplicates everything in the apiserver.
 
 #### queue/journal/append-only-log
 
- - doesn't solve delete case directly
+ - doesn't solve delete case directly. still need something else as workaround
 
 [Admission Controllers Always]: ../solutions/solutions.md#admission-controllers-always
 [ServiceInstance]: https://github.com/kubernetes-incubator/service-catalog/blob/v0.1.20/pkg/apis/servicecatalog/types.go#L670-L680

@@ -45,6 +45,8 @@ controller -> get v3
 # Possible Solutions
 ## Keep the Lock
 Status Quo, irritating but not wrong
-## Admission Controllers Always
+##  [Admission Controllers Always]
+
+[Admission Controllers Always]: ../solutions/solutions.md#admission-controllers-always
 
 ## Queuing/Journaling/Append-Only Log
