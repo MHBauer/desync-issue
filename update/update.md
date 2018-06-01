@@ -7,6 +7,10 @@
  - Both A & B are authorized in kube.
  - User A has created a ServiceInstance
 
+## Example Flow 
+
+![update options](update.png)
+
 ## Unauthorized User causes Failure for Authorized User
 
  - User A creates resource Instance
