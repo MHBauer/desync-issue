@@ -1,4 +1,13 @@
 
+# Preflight Checks
+
+There is no preflight for an external
+authorization-controller/admission-controller. Even if there was an
+auth plugin, it could not be kept in sync at all times.
+
+OSBAPI has no preflight checks for operations like k8s SAR-check. Even
+so, again, cannot be kept perfectly in sync at all times.
+
 # Admission Controllers Always
 
 Do all state changes in an admission controller before persisting them.
@@ -10,8 +19,8 @@ cons:
  - loss of state/data if something gets in a bad state between acting and persistence. 
  - duplicates everything into the apiserver
  
- This gets  us out of the very restricted  set of API Server operations.  It 
-also makes state changes  synchronous.
+This gets us out of the very restricted set of API Server operations.
+It also makes state changes synchronous.
 
 This jumps the state of the broker ahead of what the the apiserver
 knows and has persisted until it is done and ready to be committed.
