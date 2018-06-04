@@ -70,6 +70,7 @@ pros:
 cons:
  - loss of state/data if something gets in a bad state between acting and persistence. 
  - duplicates everything in the apiserver.
+ - admission controllers time out
 
 #### queue/journal/append-only-log
 
