@@ -23,3 +23,7 @@ DELETE really exposes these issues. The Broker can say "no" for a
 variety of reasons and when that happens the OSB API spec implies that
 things are returned to the pre-action state. Kube does not allow
 for that.
+
+Some worst case scenarios:
+ - on DELETE, broker rejects after a few hours with unauthorized
+ - 
