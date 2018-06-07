@@ -1,3 +1,7 @@
+Must decide between kubernetes purity and ease of maintenance.
+It seems possible to keep the standard end user api behavior for everything.
+This requires the code to get much more complicated.
+
 # Queuing/Journaling/Append-Only Log
 
 This is a proposed solution from upstream for the update issue.
