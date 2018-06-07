@@ -37,6 +37,8 @@ request, do not set the deletion timestamp.
 
 # Queuing/Journaling/Append-Only Log
 
+This is a proposed solution from upstream for the update issue.
+
 filesystem/database inspired "how do I make something reliable on top
 of something unreliable?"
 
@@ -46,7 +48,10 @@ order. Queue up changes, then act on them.
 Every state change is attributable directly to someone.
 
 Difficult for end users to see what the final state is.  Work required
-to simulate the possible final state.
+to simulate the possible final state. We would do this to represent
+the spec, so that users doing modifications modify something relevant
+to the state they should eventually see when it comes time to process
+their update.
 
 Requires a policy on what to do when an update fails, move on, or
 halt. If halt, irritating to fix. If move on, requested work is
@@ -54,9 +59,34 @@ dropped.
 
 Work might "back up" and take a while to clear.
 
-# 
+ - pros
+   - optimistic concurrency, not a big lock
+ - cons
+   - complicated mechanism for queuing and playing the queue forward
+     to simulate the end spec.
+ - unknowns
+   - how does this interact with a delete? is a delete just another
+     operation that gets queued? Dump the queue? Jump the queue?
 
 # converting admission controller
 
 Can we have an admission controller convert the delete into an update and update the delete-field?
+
+No, not a thing that exists.
+
+# Hack the apiserver
+
+This is a proposed solution from upstream for the delete issue. 
+
+Intercept DELETE before persistence. Update a field to indicate that
+the backing delete should be done. Eventually, have the controller do
+the final delete of kubernetes object (perhaps a subresource or
+distinguish by UserAgent, both would allow other clients to override
+and issue a direct force delete). 
+
+ - pros
+   - everything looks the same from the outside
+   - no behavior change to external observers
+ - cons
+   - huge hack with significant maintenance burden
 
