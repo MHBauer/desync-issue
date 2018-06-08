@@ -68,6 +68,8 @@ and issue a direct force delete).
 Go and implement a rest.Store or registry.Store object as appropriate to replace
 the built in one for instance and 
 
+![delete strategy](Scan_6-6-2018_15-45-57.1.png)
+
 # Preflight Checks
 
 There is no preflight for an external
