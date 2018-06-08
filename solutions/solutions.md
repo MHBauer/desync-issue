@@ -34,6 +34,17 @@ Work might "back up" and take a while to clear.
    - how does this interact with a delete? is a delete just another
      operation that gets queued? Dump the queue? Jump the queue?
 
+## Design
+Add a third entry on Instances and Bindings, Queue - an ordered collection of
+diffs.
+
+In the *UpdateStrategy*, diff the old and the new, and add that diff to the end
+of the Queue. Calculate what the new version of the spec should look like given
+the queue, and store that as the actual spec.
+
+In the controller, check for a non-empty queue and process one queue item at a
+time until there are none left. Define a policy for failures of queue objects.
+
 # Hack the apiserver
 
 This is a proposed solution from upstream for the delete issue. 
@@ -51,6 +62,11 @@ and issue a direct force delete).
    - huge hack with significant maintenance burden
    - must carry forward the changes when rebasing on new versions of apimachinery
    - unknown/unbounded time commitment to implement
+
+## Design
+
+Go and implement a rest.Store or registry.Store object as appropriate to replace
+the built in one for instance and 
 
 # Preflight Checks
 
