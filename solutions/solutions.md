@@ -66,9 +66,47 @@ and issue a direct force delete).
 ## Design
 
 Go and implement a rest.Store or registry.Store object as appropriate to replace
-the built in one for instance and 
+the built in one for instance and binding.
+
+Spec & Status on Instance and Binding for validation/communication between APIServer & Controller.
+APIServer needs to reject updates other than attempting to 'un-delete' while deletion has started.
+APIServer needs to reject updates after Controller has started processing.
 
 ![delete strategy](Scan_6-6-2018_15-45-57.1.png)
+
+### Sequence of Events - Happy Path
+
+1. DELETE comes from client 
+2. API Server stores a modified object with a field set, and does not set the deletion timestamp
+3. Controller sees the flag
+4. Sends the delete operation to the broker
+5. Broker responds successfully
+6. Controller issues the secondary hidden delete to the /delete resource, which sets the timestamp and does the standard kube flow.
+
+### Sequence of Events - Failure At Broker
+
+1. DELETE comes from client 
+2. API Server stores a modified object with a field set, and does not set the deletion timestamp
+3. Controller sees the flag
+4. Sends the delete operation to the broker
+5. Broker fails permanently
+6. Controller eventually times and does an UPDATE to remove the field 
+
+### Sequence of Events - Un-delete
+
+1. DELETE comes from client 
+2. API Server stores a modified object with a field set, and does not set the deletion timestamp
+3. Update comes in to remove the field.
+4. Controller tries to reconcile queued resource and is out of date when it tries to update status.
+5. Nothing happens
+
+### Sequence of Events - Fail Updates
+
+1. DELETE comes from client 
+2. API Server stores a modified object with a field set, and does not set the deletion timestamp
+3. Controller starts processing and marks resource as in-progress deleting.
+4. Someone tries to make update and is rejected as in-progress.
+5. Resource fails and rolls back or is sucessefully deleted.
 
 # Preflight Checks
 
