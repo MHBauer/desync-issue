@@ -1,6 +1,18 @@
 
 # DELETE 
 
+## instances and bindings
+
+ 1. create instance
+ 2. create binding
+ 3. delete instance 
+ 4. cannot create more bindings
+ 
+        message: All associated ServiceBindings must be removed before this ServiceInstance can be deleted
+        reason: DeprovisionBlockedByExistingCredentials
+
+## Rejected Auth
+
  - User A has permissions to the broker.
  - User B does not have permissions to the broker, but can still see and modify the k8s objects.
 
